@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using HJ001.Models;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
@@ -23,15 +24,22 @@ namespace HJ001
             _configuration = configuration;
         }
 
-
         // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940        
         public void ConfigureServices(IServiceCollection services)
         {
+            //包含了依赖于MVC Core以及相关的第三方常用的所有方法
+            services.AddMvc().AddXmlSerializerFormatters();
+            //只包含了核心的MVC功能
+            //services.AddMvcCore();
+
+            services.AddSingleton<IStudentRepository,MockStudentRepository>();
+
+            //services.AddTransient();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILogger<Startup> logger)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -58,10 +66,10 @@ namespace HJ001
 
             #region 两种静态文件的中间件用法
 
-            FileServerOptions fileServerOptions = new FileServerOptions();
-            fileServerOptions.DefaultFilesOptions.DefaultFileNames.Clear();
-            fileServerOptions.DefaultFilesOptions.DefaultFileNames.Add("htmlpage.html");
-            app.UseFileServer(fileServerOptions);
+            //FileServerOptions fileServerOptions = new FileServerOptions();
+            //fileServerOptions.DefaultFilesOptions.DefaultFileNames.Clear();
+            //fileServerOptions.DefaultFilesOptions.DefaultFileNames.Add("htmlpage.html");
+            //app.UseFileServer(fileServerOptions);
 
             //DefaultFilesOptions defaultFilesOptions = new DefaultFilesOptions();
             //defaultFilesOptions.DefaultFileNames.Clear();
@@ -76,15 +84,18 @@ namespace HJ001
 
             #endregion
 
-            app.UsePathBase();
+            app.UseStaticFiles();
+
+            //MVC默认带有信心的路由
+            app.UseMvcWithDefaultRoute();
 
             //终端中间件一般只能有一个
             app.Run(async (context) =>
             {
-                logger.LogInformation("M3");
+                //logger.LogInformation("M3");
                 //var processName = System.Diagnostics.Process.GetCurrentProcess().ProcessName;
-                var configValue = _configuration["MyKey"];
-                await context.Response.WriteAsync(configValue);
+                //var configValue = _configuration["MyKey"];
+                await context.Response.WriteAsync("Hosting Enviroment:" + env.EnvironmentName);
             });
         }
     }
