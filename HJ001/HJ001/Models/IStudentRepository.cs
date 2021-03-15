@@ -8,5 +8,7 @@ namespace HJ001.Models
     public interface IStudentRepository
     {
         Student GetStudent(int id);
+
+        IEnumerable<Student> GetAllStudents();
     }
 }

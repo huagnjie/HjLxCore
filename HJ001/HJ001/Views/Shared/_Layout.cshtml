@@ -1,0 +1,19 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <div>
+        @RenderBody()
+    </div>
+
+    @*节点*@
+    @if (IsSectionDefined("Script"))
+    {
+        //@RenderSection("Script", false)
+    }
+</body>
+</html>

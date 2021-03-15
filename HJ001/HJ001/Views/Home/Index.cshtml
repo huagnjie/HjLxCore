@@ -1,0 +1,8 @@
+﻿@model List<Student>
+@{
+    ViewBag.Title = "学生列表页";
+}
+@for (int i = 0; i < Model.Count; i++)
+{
+    <h5>@Model[i].Name</h5>
+}

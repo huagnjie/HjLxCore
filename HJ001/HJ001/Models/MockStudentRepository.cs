@@ -18,6 +18,11 @@ namespace HJ001.Models
             };
         }
 
+        public IEnumerable<Student> GetAllStudents()
+        {
+            return _studentList;
+        }
+
         /// <summary>
         /// 获取学生信息
         /// </summary>

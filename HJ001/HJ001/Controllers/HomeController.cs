@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using HJ001.ViewModels;
 
 namespace HJ001.Controllers
 {
@@ -21,15 +22,22 @@ namespace HJ001.Controllers
             _studentRepository = studentRepository;
         }
 
-        public string Index()
+        public IActionResult Index()
         {
-            return JsonConvert.SerializeObject(_studentRepository.GetStudent(1));
+            IEnumerable<Student> list = _studentRepository.GetAllStudents();
+            return View(list);
+            //return JsonConvert.SerializeObject(_studentRepository.GetStudent(1));
             //return Json(new { id = "1", name = "黄杰" });
         }
 
-        public ObjectResult Details() {
-            Student model = _studentRepository.GetStudent(2);
-            return new ObjectResult(model);
+        public IActionResult Details()
+        {
+            HomeDetailsViewModel model = new HomeDetailsViewModel()
+            {
+                Student = _studentRepository.GetStudent(2),
+                PageTitle = "我草了你的妈妈"
+            };
+            return View(model);
         }
     }
 }

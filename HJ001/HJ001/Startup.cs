@@ -1,4 +1,5 @@
-﻿using HJ001.Models;
+﻿using HJ001.Handlers;
+using HJ001.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -7,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -33,10 +35,34 @@ namespace HJ001
             //只包含了核心的MVC功能
             //services.AddMvcCore();
 
+            //services.AddScopedOne();
+            //services.AddScopedTwo();
+
             services.AddSingleton<IStudentRepository,MockStudentRepository>();
 
             //services.AddTransient();
         }
+
+        #region Map和MapWhen
+
+        //private static void HandleMap(IApplicationBuilder app)
+        //{
+        //    app.Run(async context =>
+        //    {
+        //        await context.Response.WriteAsync("Handle Map");
+        //    });
+        //}
+
+        //private static void HandleBranch(IApplicationBuilder app)
+        //{
+        //    app.Run(async context =>
+        //    {
+        //        var branchVer = context.Request.Query["branch"];
+        //        await context.Response.WriteAsync($"Branch used = {branchVer}");
+        //    });
+        //}
+
+        #endregion
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -46,7 +72,30 @@ namespace HJ001
                 app.UseDeveloperExceptionPage();
             }
 
+            #region Map和MapWhen
+
+            ////Map表示地图的意思，表示当前访问路径中存在了"/map"的时候就调用HandleMap方法，否则就跳过 - 路径
+            //app.Map("/map", HandleMap);
+
+            ////当判断当前请求参数中存在branch参数时，则调用HandleBranch方法 - 参数
+            //app.MapWhen(context => context.Request.Query.ContainsKey("branch"), HandleBranch);
+
+            ////Map支持层级分区，详情如下
+            //app.Map("/leve11", leve11App => {
+            //    leve11App.Map("/leve12a", leve12AApp =>
+            //    {
+
+            //    });
+            //    leve11App.Map("/leve12b", leve12BApp =>
+            //    {
+
+            //    });
+            //});
+
+            #endregion
+
             #region 中间件
+            //app.UseScoped();
             //app.Run(async (context) =>
             //{
             //    await context.Response.WriteAsync("Run");
@@ -62,6 +111,15 @@ namespace HJ001
             //    await next();
             //    logger.LogInformation("M1:传出响应");
             //});
+
+            //app.Use((context, next) => {
+            //    context.Response.WriteAsync("I'm is huangjie");
+
+            //    return next();
+            //});
+
+            //app.UseRequertCulture(); ;
+
             #endregion
 
             #region 两种静态文件的中间件用法
