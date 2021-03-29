@@ -11,6 +11,10 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using Swashbuckle.AspNetCore.Swagger;
+using Microsoft.OpenApi.Models;
+using System.IO;
+using System.Reflection;
 
 namespace HJ001
 {
@@ -38,7 +42,33 @@ namespace HJ001
             //services.AddScopedOne();
             //services.AddScopedTwo();
 
-            services.AddSingleton<IStudentRepository,MockStudentRepository>();
+            //注册Swagger生成器,定义一个Swagger文档
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo {
+                    Version = "v1",
+                    Title = "Bingle API",
+                    Description = "一个简单的ASP.NET Core Web API",
+                    TermsOfService = new Uri("https://www.cnblogs.com/namelessblog/"),
+                    Contact = new OpenApiContact
+                    {
+                        Name = "bingle",
+                        Email = string.Empty,
+                        Url = new Uri("https://www.cnblogs.com/namelessblog/"),
+                    },
+                    License = new OpenApiLicense
+                    {
+                        Name = "许可证",
+                        Url = new Uri("https://www.cnblogs.com/namelessblog/"),
+                    }
+                });
+                //为 Swagger JSON and UI设置xml文档注释路径
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
+            });
+
+            services.AddSingleton<IStudentRepository, MockStudentRepository>();
 
             //services.AddTransient();
         }
@@ -146,6 +176,15 @@ namespace HJ001
 
             //MVC默认带有信心的路由
             app.UseMvcWithDefaultRoute();
+
+            //启用中间件服务生成Swagger作为JSON终结点
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json","My API V1");
+                c.RoutePrefix = string.Empty;
+            });
 
             //终端中间件一般只能有一个
             app.Run(async (context) =>

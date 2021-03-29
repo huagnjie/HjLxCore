@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>HJ001</name>
+    </assembly>
+    <members>
+        <member name="M:HJ001.Controllers.HomeController.#ctor(HJ001.Models.IStudentRepository)">
+            <summary>
+            通过构造函数注入了IStudentRepository
+            </summary>
+            <param name="studentRepository"></param>
+        </member>
+        <member name="M:HJ001.Controllers.HomeController.GetStudent(System.Collections.Generic.List{System.String})">
+            <summary>
+            测试
+            </summary>
+            <param name="idList">id集合</param>
+            <returns>数据集合</returns>
+        </member>
+        <member name="T:HJ001.Handlers.RequestCultureMiddleware">
+            <summary>
+            添加中间件 - 基于约定的中间件开发
+            </summary>
+        </member>
+        <member name="M:HJ001.Handlers.RequestCultureMiddleware.#ctor(Microsoft.AspNetCore.Http.RequestDelegate)">
+            <summary>
+            基与构造函数的注入
+            </summary>
+            <param name="next"></param>
+        </member>
+        <member name="T:HJ001.Handlers.RequestCultureMiddlewareExtensions">
+            <summary>
+            构建一个扩展方法 可以让他在configure里面直接调用
+            通过委托构造中间件，应用程序在运行时创建这个中间件，并将它添加到管道中。这里需要注意的是，中间件的创建是单例的，
+            每个中间件在应用程序生命周期内只有一个实例。
+            </summary>
+        </member>
+        <member name="T:HJ001.Handlers.ScopedMiddleware">
+            <summary>
+            创建中间件代理类
+            </summary>
+        </member>
+        <member name="M:HJ001.Models.MockStudentRepository.GetStudent(System.Int32)">
+            <summary>
+            获取学生信息
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:HJ001.Models.Student">
+            <summary>
+            学生模型
+            </summary>
+        </member>
+        <member name="F:HJ001.Startup._configuration">
+            <summary>
+            服务与.Net Core拿到各种配置文件
+            </summary>
+        </member>
+        <member name="T:HJ001.ViewModels.HomeDetailsViewModel">
+            <summary>
+            ViewModel - 视图模型。在其他的各种框架中也可以被称为DTO
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.ScopedMiddlewareExtensions.AddScopedOne(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            添加服务的依赖注入
+            </summary>
+            <param name="services"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Builder.ScopedMiddlewareExtensions">
+            <summary>
+            创建中间件扩展类
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Builder.ScopedMiddlewareExtensions.UseScoped(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            使用中间件
+            </summary>
+            <param name="builder"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
