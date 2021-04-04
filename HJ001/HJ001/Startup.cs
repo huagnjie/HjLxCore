@@ -34,8 +34,6 @@ namespace HJ001
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940        
         public void ConfigureServices(IServiceCollection services)
         {
-            //包含了依赖于MVC Core以及相关的第三方常用的所有方法
-            services.AddMvc().AddXmlSerializerFormatters();
             //只包含了核心的MVC功能
             //services.AddMvcCore();
 
@@ -67,6 +65,9 @@ namespace HJ001
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
             });
+
+            //包含了依赖于MVC Core以及相关的第三方常用的所有方法
+            services.AddMvc().AddXmlSerializerFormatters();
 
             services.AddSingleton<IStudentRepository, MockStudentRepository>();
 
@@ -174,8 +175,11 @@ namespace HJ001
 
             app.UseStaticFiles();
 
-            //MVC默认带有信心的路由
-            app.UseMvcWithDefaultRoute();
+
+            //传统路由
+            //app.UseMvc(rutes=> {
+            //    rutes.MapRoute("default","{controller-Home}/{action=Index}/{id?}");
+            //});
 
             //启用中间件服务生成Swagger作为JSON终结点
             app.UseSwagger();
@@ -185,6 +189,13 @@ namespace HJ001
                 c.SwaggerEndpoint("/swagger/v1/swagger.json","My API V1");
                 c.RoutePrefix = string.Empty;
             });
+
+
+            //MVC默认带有信息的路由
+            app.UseMvcWithDefaultRoute();
+
+            //属性路由
+            //app.UseMvc();
 
             //终端中间件一般只能有一个
             app.Run(async (context) =>

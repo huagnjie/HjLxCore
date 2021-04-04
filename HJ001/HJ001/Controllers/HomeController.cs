@@ -13,7 +13,6 @@ namespace HJ001.Controllers
     /// 123
     /// </summary>
     [Produces("application/json")]
-    [Route("api/Home")]
     public class HomeController : Controller
     {
         private readonly IStudentRepository _studentRepository;
@@ -27,7 +26,6 @@ namespace HJ001.Controllers
             _studentRepository = studentRepository;
         }
 
-        [HttpGet("{Home}/{Index}")]
         public IActionResult Index()
         {
             IEnumerable<Student> list = _studentRepository.GetAllStudents();
@@ -36,7 +34,6 @@ namespace HJ001.Controllers
             //return Json(new { id = "1", name = "黄杰" });
         }
 
-        [HttpGet("{Home}/{Details}")]
         public IActionResult Details()
         {
             HomeDetailsViewModel model = new HomeDetailsViewModel()
