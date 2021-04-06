@@ -34,14 +34,27 @@ namespace HJ001.Controllers
             //return Json(new { id = "1", name = "黄杰" });
         }
 
-        public IActionResult Details()
+        public IActionResult Details(int? id)
         {
             HomeDetailsViewModel model = new HomeDetailsViewModel()
             {
-                Student = _studentRepository.GetStudent(2),
+                Student = _studentRepository.GetStudent(id ?? 2),
                 PageTitle = "偶吼吼"
             };
             return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public RedirectToActionResult Create(Student student)
+        {
+            Student newStudent = _studentRepository.Add(student);
+            return RedirectToAction("Details", new { id = newStudent.Id });
         }
 
         /// <summary>

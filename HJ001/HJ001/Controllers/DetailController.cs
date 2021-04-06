@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace HJ001.Controllers
 {
+    [Route("[controller]")]
     public class DetailController : Controller
     {
+        [Route("[action]")]
         public IActionResult Index()
         {
             return View();

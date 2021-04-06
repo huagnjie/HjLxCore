@@ -2,4 +2,26 @@
 @{
     ViewBag.Title = "学生详情页";
 }
-<h1>@Model.Student.Name</h1>
+<div class="row justify-content-center m-3">
+    <div class="col-sm-8">
+        <div class="card text-center">
+            <div class="card-header">
+                <h1>@Model.Student.Name</h1>
+            </div>
+
+            <div class="card-body text-center">
+                <img src="~/image/123.jpg" />
+                <h4>学生Id: @Model.Student.Id</h4>
+                <h4>邮箱: @Model.Student.Email</h4>
+                <h4>班级名称: @Model.Student.ClassName</h4>
+            </div>
+
+            <div class="card-footer text-center">
+                <a asp-controller="Home" asp-action="Index" class="btn btn-primary">返回</a>
+                <a href="#" class="btn btn-primary">编辑</a>
+                <a href="#" class="btn btn-danger">删除</a>
+            </div>
+
+        </div>
+    </div>
+</div>

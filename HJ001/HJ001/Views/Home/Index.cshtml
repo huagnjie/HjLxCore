@@ -11,12 +11,12 @@
                     @student.Name
                 </h3>
             </div>
-            <img src="~/image/123.jpg" />
+            <img class="card-img-top" src="~/image/123.jpg" asp-append-version="true" />
             <div class="card-footer text-center">
-                <a href="#" class="btn btn-primary">查看</a>
+                <a asp-controller="home" asp-action="details" asp-route-id="@student.Id" class="btn btn-primary m-1">查看</a>
                 <a href="#" class="btn btn-primary">编辑</a>
                 <a href="#" class="btn btn-primary">删除</a>
-            </div>>
+            </div>
         </div>
     }
 </div>

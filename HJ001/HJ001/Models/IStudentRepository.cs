@@ -10,5 +10,7 @@ namespace HJ001.Models
         Student GetStudent(int id);
 
         IEnumerable<Student> GetAllStudents();
+
+        Student Add(Student student);
     }
 }

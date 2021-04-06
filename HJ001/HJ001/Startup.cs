@@ -177,8 +177,9 @@ namespace HJ001
 
 
             //传统路由
-            //app.UseMvc(rutes=> {
-            //    rutes.MapRoute("default","{controller-Home}/{action=Index}/{id?}");
+            //app.UseMvc(rutes =>
+            //{
+            //    rutes.MapRoute("default", "{controller-Home}/{action=Index}/{id?}");
             //});
 
             //启用中间件服务生成Swagger作为JSON终结点
@@ -187,7 +188,7 @@ namespace HJ001
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json","My API V1");
-                c.RoutePrefix = string.Empty;
+                //c.RoutePrefix = string.Empty;
             });
 
 
