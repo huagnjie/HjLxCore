@@ -3,13 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using StudentRepository.Models;
+using StudentRepository.ViewModels;
 
 namespace HJ001.Controllers
 {
-    [Route("[controller]")]
+    [Produces("application/json")]
     public class DetailController : Controller
     {
-        [Route("[action]")]
         public IActionResult Index()
         {
             return View();

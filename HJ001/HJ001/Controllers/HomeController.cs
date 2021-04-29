@@ -1,11 +1,11 @@
-﻿using HJ001.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using HJ001.ViewModels;
+using StudentRepository.Models;
+using StudentRepository.ViewModels;
 
 namespace HJ001.Controllers
 {
@@ -44,17 +44,21 @@ namespace HJ001.Controllers
             return View(model);
         }
 
-        [HttpGet]
+        [HttpGet()]
         public IActionResult Create()
         {
             return View();
         }
 
-        [HttpPost]
-        public RedirectToActionResult Create(Student student)
+        [HttpPost()]
+        public IActionResult Create(Student student)
         {
-            Student newStudent = _studentRepository.Add(student);
-            return RedirectToAction("Details", new { id = newStudent.Id });
+            if (ModelState.IsValid)
+            {
+                Student newStudent = _studentRepository.Add(student);
+                return RedirectToAction("Details", new { id = newStudent.Id });
+            }
+            return View();
         }
 
         /// <summary>

@@ -24,7 +24,6 @@ namespace HJ001.Handlers
         {
             context.Response.ContentType = "text/plain;charset=utf-8";
             scoped.MyName = "huangjie";
-            context.Response.WriteAsync("I'm is name:" + scoped.GetScopedName());
             await _next(context);
         }
     }

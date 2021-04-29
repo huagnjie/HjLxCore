@@ -1,5 +1,4 @@
 ﻿using HJ001.Handlers;
-using HJ001.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -15,6 +14,8 @@ using Swashbuckle.AspNetCore.Swagger;
 using Microsoft.OpenApi.Models;
 using System.IO;
 using System.Reflection;
+using StudentRepository.SqlServerRepository;
+using Microsoft.EntityFrameworkCore;
 
 namespace HJ001
 {
@@ -34,6 +35,12 @@ namespace HJ001
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940        
         public void ConfigureServices(IServiceCollection services)
         {
+            //EFCore
+            //使用Pool版本是有连接池的，所以当连接池存在时，不会重新创建新实例
+            services.AddDbContextPool<AppDbContext>(options =>
+//设置数据库类型为Sqlserver,并且引入连接字符串
+options.UseSqlServer(_configuration.GetConnectionString("StudentConn")));
+
             //只包含了核心的MVC功能
             //services.AddMvcCore();
 
@@ -43,7 +50,8 @@ namespace HJ001
             //注册Swagger生成器,定义一个Swagger文档
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
                     Version = "v1",
                     Title = "Bingle API",
                     Description = "一个简单的ASP.NET Core Web API",
@@ -69,8 +77,8 @@ namespace HJ001
             //包含了依赖于MVC Core以及相关的第三方常用的所有方法
             services.AddMvc().AddXmlSerializerFormatters();
 
-            services.AddSingleton<IStudentRepository, MockStudentRepository>();
-
+            //services.AddSingleton<IStudentRepository, MockStudentRepository>();
+            services.AddStudentRepository();
             //services.AddTransient();
         }
 
@@ -187,7 +195,7 @@ namespace HJ001
 
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json","My API V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
                 //c.RoutePrefix = string.Empty;
             });
 
