@@ -24,7 +24,13 @@ namespace StudentRepository.Models
 
         [Display(Name = "邮箱")]
         [Required(ErrorMessage = "请输入邮箱")]
-        [RegularExpression(@"[1-9]",ErrorMessage ="邮箱格式不正确")]
+        [RegularExpression(@"^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$", ErrorMessage ="邮箱格式不正确")]
         public string Email { get; set; }
+
+        [Display(Name = "头像文件路径")]
+        public string PhotoPath { get; set; }
+
+        [Display(Name = "个人附件")]
+        public string FilePath { get; set; }
     }
 }

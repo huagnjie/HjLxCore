@@ -1,0 +1,70 @@
+
+                         EXPRESS WORLDWIDE
+                           2021-04-21 MyDHL API 1.0 / *GLS certified label*WPX
+                          From :Asetek Xiamen computer Industry Co.,Ltd    Origin:
+                                Freda                                              XMN
+                                No.4 No.100, Dongfu West Road, Haicang
+                                Xiamen, China
+                                361027 Xiamen
+                                CHINA, PEOPLES REPUBLIC                            Contact: 13960248986
+                            To : Ciara Technologies      Contact:
+                                                                         514-745-4540
+                                Jorge Segrera
+                                Ciara Technologies 9300, Trans-Canadienne Higjsegrera@ciaratech.com
+                                hway St-Laurent QC H4S 1K5 Canada
+                                H4S 1K SAINT LAURENT
+                                CANADA
+                         CVGU          CA-YUL-GTW.
+                                                                             Day   Time
+                          C-DTP
+                                                                    Pce/Shpt WeightPiece
+                          Ref No: NOT RESTRICTED           11.5 kg1/1
+                          Content :  Univar Liquid CPU Cooler DOWCAL200(Univar  CPU DOWCAL200) 16pcs
+                                       WAYBILL 47 4318 5602
+                                             (2L)CAH4S1K+48000001
+                          Ref Code:
+                          [YSM-6] [LV]
+                                          (J) JD01 4600 0087 5277 0543
+                         *WAYBILL DOC*
+                         Not to be attached to package - Hand to CourierWPX
+                         2021-04-21 MyDHL API 1.0 / GLS certified label
+                            Shipper :                       Contact:
+                            Asetek Xiamen computer Industry Co.,Ltd13960248986
+                            Freda
+                            No.4 No.100, Dongfu West Road, Haicang
+                            Xiamen, China
+                            361027 Xiamen
+                            CHINA, PEOPLES REPUBLIC
+                            Receiver :                     Contact:
+                            Ciara Technologies            514-745-4540
+                            Jorge Segrera
+                            Ciara Technologies 9300, Trans-Canadienne Higjsegrera@ciaratech.com
+                            hway St-Laurent QC H4S 1K5 Canada
+                            H4S 1K SAINT LAURENT
+                            CANADA
+                         CVGUCN-XMN-TXMCA-YUL-GTW.
+                         Product Details:             Features / Services (Service Code)
+                         [P] EXPRESS WORLDWIDE (48)  DUTIES & TAXES PAID(DD)
+                         Payer Details
+                         FRT: 602324285
+                         Duty & Taxes Payer: 602324285
+                         DHL Billing Service: DTP
+                          Shipment Details
+                          Ref No: NOT RESTRICTED
+                          Declared Value for Customs: 480.00 USD
+                          Content:  Univar Liquid CPU Cooler DOWCAL200(Univar  CPU DOWCAL200) 16pcs
+                         Cust Decl Shpt Wgt (UOM) / Dim Wgt (UOM):                     Pieces
+                           11.5 kg                                  1
+                         Name (in Capital Letters)              Signature              Date  (DD.MM.YYYY)
+                                   WAYBILL 47 4318 5602
+                         License Plates of pieces in shipment
+                         JD014600008752770543
+var salePlace = JSON.parse(data.RemoveSalePlace);
+                    if (salePlace != null) {
+                        var names = salePlace.Names; var selvals = [];
+                        for (var i = 0; i < names.length; i++) {
+                            selvals.push({ id: names[i], text: top.learun.data.get(["uSampleShipList", "RemoveSalePlace", names[i]]) });
+                        }
+                        $("#RemoveSalePlace").select2SetValue(selvals);
+                    }
+                                                      - page 1 of 1 -
