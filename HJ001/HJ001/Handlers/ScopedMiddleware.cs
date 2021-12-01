@@ -29,12 +29,12 @@ namespace HJ001.Handlers
     }
 }
 
-/// <summary>
-/// 添加依赖服务注册
-/// </summary>
 namespace Microsoft.Extensions.DependencyInjection
 {
     using HJ001.Handlers;
+    /// <summary>
+    /// 添加依赖服务注册
+    /// </summary>
     public static partial class ScopedMiddlewareExtensions
     {
         /// <summary>
@@ -53,10 +53,7 @@ namespace Microsoft.Extensions.DependencyInjection
         }
     }
 }
-
-/// <summary>
-/// 创建中间件控制类
-/// </summary>
+//创建中间件控制类
 namespace Microsoft.AspNetCore.Builder
 {
     using HJ001.Handlers;

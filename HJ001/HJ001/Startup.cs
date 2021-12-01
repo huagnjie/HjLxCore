@@ -67,11 +67,14 @@ options.UseSqlServer(_configuration.GetConnectionString("StudentConn")));
                         Name = "许可证",
                         Url = new Uri("https://www.cnblogs.com/namelessblog/"),
                     }
-                });
+                });                
                 //为 Swagger JSON and UI设置xml文档注释路径
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                c.IncludeXmlComments(xmlPath);
+                if (File.Exists(xmlPath)) { c.IncludeXmlComments(xmlPath); }
+                //忽略过时属性
+                //c.IgnoreObsoleteActions();
+                //c.TagActionsBy(api => api.HttpMethod);
             });
 
             //包含了依赖于MVC Core以及相关的第三方常用的所有方法
@@ -109,6 +112,12 @@ options.UseSqlServer(_configuration.GetConnectionString("StudentConn")));
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseStatusCodePagesWithReExecute("/Error/{0}");
+            }
+            else
+            {
+                app.UseStatusCodePagesWithReExecute("/Error/{0}");
+                //app.UseStatusCodePagesWithRedirects("/Error/{0}");
             }
 
             #region Map和MapWhen
@@ -193,9 +202,14 @@ options.UseSqlServer(_configuration.GetConnectionString("StudentConn")));
             //启用中间件服务生成Swagger作为JSON终结点
             app.UseSwagger();
 
+            //启用中间件以提供用户界面（HTML、JS、CSS等），特别是指定JSON端点
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                //页面头名称
+                c.DocumentTitle = "平台API";
+                //页面API文档格式 Full = 全部展开, List = 只展开列表, None = 都不展开
+                c.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.List);
                 //c.RoutePrefix = string.Empty;
             });
 

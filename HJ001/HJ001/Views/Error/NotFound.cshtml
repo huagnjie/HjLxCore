@@ -1,0 +1,13 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewBag.Title = "页面不存在";
+}
+<h1>@ViewBag.ErrorMessage</h1>
+
+
+<h1>Path: @ViewBag.Path</h1>
+<h1>QueryStr: @ViewBag.QueryStr</h1>
+<h1>BasePath: @ViewBag.BasePath</h1>
+<a asp-controller="home" asp-action="index">点击此处返回首页</a>

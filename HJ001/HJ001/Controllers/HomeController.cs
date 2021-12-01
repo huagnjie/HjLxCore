@@ -8,6 +8,7 @@ using StudentRepository.Models;
 using StudentRepository.ViewModels;
 using Microsoft.AspNetCore.Hosting.Internal;
 using System.IO;
+using Microsoft.Extensions.Logging;
 
 namespace HJ001.Controllers
 {
@@ -19,28 +20,35 @@ namespace HJ001.Controllers
     {
         private readonly IStudentRepository _studentRepository;
         private readonly HostingEnvironment hosting;
+        private readonly ILogger logger;
 
         /// <summary>
         /// 通过构造函数注入了IStudentRepository
         /// </summary>
         /// <param name="studentRepository"></param>
         /// <param name="hosting"></param>
-        public HomeController(IStudentRepository studentRepository, HostingEnvironment hosting)
+        /// <param name="logger"></param>
+        public HomeController(IStudentRepository studentRepository, HostingEnvironment hosting,ILogger<HomeController> logger)
         {
             _studentRepository = studentRepository;
             this.hosting = hosting;
+            this.logger = logger;
         }
 
         public IActionResult Index()
         {
+
             IEnumerable<Student> list = _studentRepository.GetAllStudents();
             return View(list);
             //return JsonConvert.SerializeObject(_studentRepository.GetStudent(1));
             //return Json(new { id = "1", name = "黄杰" });
         }
 
+
         public IActionResult Details(int? id)
         {
+            logger.LogInformation("我警告你哦");
+
             HomeDetailsViewModel model = new HomeDetailsViewModel()
             {
                 Student = _studentRepository.GetStudent(id ?? 2),
@@ -140,6 +148,7 @@ namespace HJ001.Controllers
         /// <param name="idList">id集合</param>
         /// <returns>数据集合</returns>
         [HttpGet("GetStudent/{idList}")]
+        [Obsolete("测试过时")]
         public ObjectResult GetStudent(List<string> idList)
         {
             HomeDetailsViewModel model = new HomeDetailsViewModel()
