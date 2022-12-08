@@ -40,5 +40,11 @@ namespace HJ001.Controllers
             Console.WriteLine(1);
             return new ObjectResult("");
         }
+
+        [HttpGet("Task_SyncTaskRun")]
+        public void SyncTaskRun()
+        {
+            Task.Run(() => { _studyTask.DisplayCounts(); });
+        }
     }
 }

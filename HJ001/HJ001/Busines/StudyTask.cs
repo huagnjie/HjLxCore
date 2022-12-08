@@ -40,8 +40,6 @@ namespace HJ001.Busines
             return task;           
         }
 
-
-
         public void LockSomething()
         {
             lock (obj)
@@ -70,6 +68,20 @@ namespace HJ001.Busines
         public void dosomething()
         {
             //做具体的事情
+        }
+
+        public void DisplayCounts() {
+            for (int i = 0; i < 10; i++)
+            {
+                System.Diagnostics.Debug.WriteLine(GetPrimesCount(i * 1000000 + 2, 1000000) + "betwwen"
+                    + (i * 1000000) + "and" + ((i + 1) * 1000000 - 1));
+            }
+        }
+
+        int GetPrimesCount(int start,int count)
+        {
+            return ParallelEnumerable.Range(start, count).Count(n =>
+             Enumerable.Range(2, (int)Math.Sqrt(n) - 1).All(i => n % i > 0));
         }
 
     }

@@ -16,6 +16,7 @@ using System.IO;
 using System.Reflection;
 using StudentRepository.SqlServerRepository;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace HJ001
 {
@@ -66,7 +67,8 @@ options.UseSqlServer(_configuration.GetConnectionString("StudentConn")));
                     {
                         Name = "许可证",
                         Url = new Uri("https://www.cnblogs.com/namelessblog/"),
-                    }
+                    },
+                    
                 });                
                 //为 Swagger JSON and UI设置xml文档注释路径
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
@@ -75,7 +77,36 @@ options.UseSqlServer(_configuration.GetConnectionString("StudentConn")));
                 //忽略过时属性
                 //c.IgnoreObsoleteActions();
                 //c.TagActionsBy(api => api.HttpMethod);
+                #region Token
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement {
+                    { 
+                    new OpenApiSecurityScheme{ 
+                    Reference = new OpenApiReference{ Type = ReferenceType.SecurityScheme,Id="Bearer"}
+                    },
+                    new List<string>()
+                    }
+                });
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Description = "JWT Authorization header using the Bearer scheme.",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Scheme="bearer",
+                    Type = SecuritySchemeType.Http,
+                    BearerFormat = "JWT"
+                }) ;
+                #endregion
             });
+
+            services.AddSingleton<IMemoryCache>(factory =>
+            {
+                var cache = new MemoryCache(new MemoryCacheOptions());
+                return cache;
+            });
+
+            //services.AddAuthentication(options=> { 
+            //options.AddProlicy
+            //})
 
             //包含了依赖于MVC Core以及相关的第三方常用的所有方法
             services.AddMvc().AddXmlSerializerFormatters();
